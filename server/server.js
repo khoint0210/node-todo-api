@@ -1,83 +1,29 @@
-var mongoose = require('mongoose');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp');
+var {mongoose} = require('./db/mongoose');
+var {Todo} = require('./models/todo');
+var {User} = require('./models/user');
 
-// var Todo = mongoose.model('Todo', {
-//   text: {
-//     type: String,
-//     required: true,
-//     minlenght: 1,
-//     trim: true
-//   },
-//   completed: {
-//     type: Boolean,
-//     default: false
-//   },
-//   completedAt: {
-//     type: Number,
-//     default: null
-//   }
-// });
+var app = express();
 
-// var newTodo = new Todo({
-//   text: 'Cook dinner'
-// });
-//
-// newTodo.save().then((doc) => {
-// console.log('Saved todo', doc);
-// }, (e) => {
-//   console.log('Unable to save todo');
-// });
+app.use(bodyParser.json());
 
-// var otherTodo = new Todo({
-//   text: '   test  ',
-// });
-//
-// otherTodo.save().then((doc) => {
-//   console.log(JSON.stringify(doc, undefined, 2));
-// },(e) => {
-//   console.log('Unable to save todo');
-// });
+app.post('/todos', (req, res) => {
+  var todo = new Todo({
+    text: req.body.text,
+    completed: req.body.completed
+  });
 
-
-
-var User = mongoose.model('User' ,{
-  email:{
-    type: String,
-    trim: true,
-    minlenght: 1,
-    required: true
-  },
-  name:{
-    type: String,
-    trim: true,
-    minlenght: 1,
-    required: true
-  },
-  age:{
-    type: Number,
-    trim: true,
-    required: true
-  },
-  location:{
-    type: String,
-    trim: true,
-    minlenght: 1,
-    required: true
-  }
+  todo.save().then((doc) => {
+    console.log('Save succsee');
+    res.send(doc)
+  }, (e) => {
+    console.log(e);
+    res.status(400).send(e);
+  });
 });
 
-var userEmail = new User({
-  name: 'Nguyễn Trường Khôi',
-  age: 19,
-  location: 'Nha Trang',
-  email: '   nguyentruongk@gmail.com    ',
-});
-
-userEmail.save().then((doc)=> {
-  console.log('Saved info succsees');
-  console.log(doc);
-},(e) => {
-  console.log('Saved info false' ,e);
+app.listen(3000, () => {
+  console.log('Started on port 3000');
 });
