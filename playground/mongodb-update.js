@@ -1,19 +1,20 @@
 // const MongoClient = require('mongodb').MongoClient;
-const {MongoClient, ObjectID} = require('mongodb');
+const { MongoClient, ObjectID } = require('mongodb');
 
-MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db ) => {
+MongoClient.connect('mongodb://khoivip98:khoivip98@ds159330.mlab.com:59330/todos', (err, db) => {
   if (err) {
     return console.log('Unable to connect to MongoDB server');
   }
   console.log('Connected to MongoDB server');
 
 db.collection('Todos').findOneAndUpdate({
-  _id: new ObjectID('58cbbebd0a43770b48081512')
-},{
+  text: 'Something to do'
+}, {
   $set: {
-    complete: true
+    complete: true,
+    text: 'Eat lunch'
   }
-},{
+}, {
   returnOriginal: false
 }).then((result) => {
   console.log(result);
@@ -21,7 +22,7 @@ db.collection('Todos').findOneAndUpdate({
 
 db.collection('Khoi').findOneAndUpdate({
   _id: new ObjectID('58e9b6720ab93d06e841c08e')
-},{
+}, {
   $set: {
     name: 'Nguyễn Trường Khôi',
     location: 'Nha Trang'
@@ -29,7 +30,7 @@ db.collection('Khoi').findOneAndUpdate({
   $inc: {
     age: -1
   }
-},{
+}, {
   returnOriginal: false
 }).then((result) => {
   console.log(result);
