@@ -78,7 +78,7 @@ app.delete('/todos/:id', (req, res) => {
     body.completed = false;
     body.completedAt = null;
   }
-  Todo.findByIdAndUpdate(id).then((todo) => {
+  Todo.findByIdAndUpdate(id, { $set: body }, { new: true }).then((todo) => {
     if (!todo) {
       return res.status(400).send();
     }
