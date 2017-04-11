@@ -8,5 +8,8 @@
     "test-watch": "nodemon --exec 'npm test'"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint-config-bkdev": "^1.0.1"
+  }
 }

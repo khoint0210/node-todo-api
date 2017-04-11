@@ -1,9 +1,8 @@
-const {ObjectID} = require('mongodb')
-var {mongoose} = require('./../server/db/mongoose');
-var {Todo} = require('./../server/models/todo');
-var {User} = require('./../server/models/user');
-var id = '58e9ce6915dc6d0b704543c1'
-//
+const { ObjectID } = require('mongodb');
+const { mongoose } = require('./../server/db/mongoose');
+const { Todo } = require('./../server/models/todo');
+const { User } = require('./../server/models/user');
+const id = '58e9ce6915dc6d0b704543c1';
 // if (!ObjectID.isValid(id)) {
 //   console.log('ID not valid');
 // }
