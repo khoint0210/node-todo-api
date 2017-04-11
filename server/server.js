@@ -72,7 +72,7 @@ app.delete('/todos/:id', (req, res) => {
   if (!ObjectID.isValid(id)) {
     return res.status(404);
   }
-  if (_.isBoolean(body.completed) && body.completed) {
+  if (_.isBoolean(body.completed) && body.completed = true) {
     body.completedAt = new Date().getTime();
   } else {
     body.completed = false;
