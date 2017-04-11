@@ -7,6 +7,7 @@ const { User } = require('./models/user');
 
 const { ObjectID } = require('mongodb');
 
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -50,6 +51,7 @@ Todo.findById(id).then((todo) => {
  }).catch((err) => res.status(400).send());
 });
 
-app.listen(3000, () => {
-  console.log('Started on port 3000');
+
+app.listen(port, () => {
+  console.log(`Start at port ${port}`);
  });
