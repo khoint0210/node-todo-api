@@ -7,6 +7,8 @@ const { User } = require('./models/user');
 
 const { ObjectID } = require('mongodb');
 
+const _ = require('lodash');
+
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -62,6 +64,26 @@ app.delete('/todos/:id', (req, res) => {
     }
     res.send(todo);
   }).catch((e) => res.status(400).send());
+});
+
+  app.patch('/todos/:id', (req, res) => {
+     const id = req.params.id;
+     const body = _.pick(req.body, ['text', 'completed']);
+  if (!ObjectID.isValid(id)) {
+    return res.status(404);
+  }
+  if (_.isBoolean(body.completed) && body.completed) {
+    body.completedAt = new Date().getTime();
+  } else {
+    body.completed = false;
+    body.completedAt = null;
+  }
+  Todo.findByIdAndUpdate(id).then((todo) => {
+    if (!todo) {
+      return res.status(400).send();
+    }
+    res.send(todo);
+  }).catch((e) => res.status(404).send());
 });
 
 app.listen(port, () => {
